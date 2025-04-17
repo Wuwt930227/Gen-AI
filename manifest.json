@@ -1,0 +1,28 @@
+{
+    "manifest_version": 3,
+    "name": "浮動視窗助手",
+    "version": "5.1",
+    "description": "在特定網站顯示浮動視窗",    
+    "icons": {
+        "128": "icon.png"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://www.emmt-demo.com/emmt-edoc/manager/home*"],
+            "js": ["content.js"],
+            "css": ["styles.css"]
+        }
+    ],
+    "permissions": ["storage"],
+
+    "_comment": "按鈕圖片",
+    "web_accessible_resources": [
+    {
+        "resources": ["Button.png*"],
+        "matches": ["<all_urls>"]
+    }
+    ],
+    "content_security_policy": {
+    "extension_pages": "script-src 'self'; style-src 'self' 'unsafe-inline'"
+}
+}

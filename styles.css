@@ -1,0 +1,284 @@
+:root {
+    --primary-color: rgb(0, 198, 255); /* 主題顏色 */
+    --secondary-color: #4CAF50; /* 次要顏色 */
+    --text-color: #333; /* 文字顏色 */
+    --background-color: #f9f9f9; /* 背景顏色 */
+    --border-radius: 10px; /* 圓角半徑 */
+    --shadow-color: rgba(0, 0, 0, 0.2); /* 陰影顏色 */
+    --tooltip-bg-color: rgba(0, 0, 0, 0.75); /* Tooltip 背景顏色 */
+}
+
+body {
+    font-family: Arial, Helvetica, '微軟正黑體', sans-serif;/* 字體 */
+}
+
+/* 歡迎訊息 */
+.welcome-message {
+    font-size: 16px;
+    color: #333;
+    background-color: #f1f1f1;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 固定位置的浮動視窗 */
+#floating-widget {
+    position: fixed;
+    right: 30px;
+    bottom: 16px;
+    z-index: 1000;
+}
+
+/* 按鈕設計 */
+#widget-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s ease-in-out; /* 按鈕放大效果 */
+}
+
+#widget-button:hover {
+    transform: scale(1.1); /* 按鈕放大效果 */
+}
+
+/* Tooltip */
+#widget-button::after {
+    content: "您好! 我是AI小精靈，很高興能為你服務 (・∀・)";
+    position: absolute;
+    left: 10%;
+    bottom: 10px;
+    transform: translateX(-110%);   
+    background-color: var(--tooltip-bg-color); /* Tooltip 背景顏色 */
+    color: white;
+    font-size: 14px;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    min-width: 120px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out; /* 變換顯示過程 */
+}
+
+/* 滑鼠懸停時顯示 Tooltip */
+#widget-button:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 按鈕圖片 */
+#widget-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 圖片按比例縮放，並填滿按鈕 */
+    border-radius: 50%; /* 保持圖片圓形 */
+}
+
+
+/* 內容區域 */
+#widget-content {
+    position: relative;
+    font-size: 16px; /* 文字大小 */
+    height: 450px;   /* 高度 */
+    width: 360px;    /* 寬度 */
+    overflow-y: auto;    /* 內容超出時顯示滾動條 */
+    background: white;
+    padding: 15px;
+    padding-top: 55px;/* 工具列高度(40) */
+    border: 1px solid var(--primary-color); /* 主題顏色邊框 */
+    border-radius: var(--border-radius);
+    box-shadow: 2px 2px 10px var(--shadow-color); /* 陰影 */
+    display: flex;   /* 使內容使用 flex 佈局 */
+    flex-direction: column;  /* 垂直排列 */
+    justify-content: flex-end; /* 讓內容區域固定在底部 */
+    transition: height 0.5s ease-in-out; /* 平滑的高度過渡效果 */
+}
+
+/* 工具列 */
+.widget-header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    position: absolute;/*疊加在內容上方*/
+    top: 0;
+    left: 0;
+    z-index: 10;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    max-width: 360px;
+}
+
+/* 工具列文字 */
+.widget-title {
+    font-weight: 600;
+    padding: 0 15px;
+    white-space: pre-wrap;
+    max-width: 100%;
+}
+
+/* 工具列按鈕 */
+.widget-header button {
+    background-color: transparent;
+    border: none;
+    color: var(--white);
+    font-size: 16px;
+    margin-left: 5px;
+    cursor: pointer;
+    padding: 4px 6px;
+}
+/* 工具列按鈕 */
+.widget-header button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+/* 聊天區域 */
+#chat-container {
+    height: 300px;
+    overflow-y: auto; /* 超過高度時顯示滾動條 */
+    margin-bottom: 10px;
+    flex-grow: 1;
+}
+
+/* 輸入區域 */
+#input-container {
+    display: flex;
+    flex-direction: row; /* 水平排列對話框輸入框和發送按鈕 */
+    gap: 10px; /* 增加項目之間的間隙 */
+    margin-top: auto; /* 保證輸入區域位於最底部 */
+    width: 100%; /* 讓它填滿整個寬度 */
+}
+
+/* 輸入框 */
+#userInput {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc; /* 邊框顏色 */
+    border-radius: var(--border-radius); /* 圓角 */
+    font-size: 16px;
+    resize: none; /* 禁用大小調整 */
+    min-height: 40px;
+}
+
+/* 發送按鈕 */
+#sendBtn {
+    padding: 10px;
+    background-color: var(--primary-color); /* 主題顏色背景 */
+    color: white;
+    border: none;
+    border-radius: var(--border-radius); /* 圓角 */
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s; /* 背景顏色變化 */
+}
+
+/* 發送按鈕懸停效果 */
+#sendBtn:hover {
+    background-color: var(--secondary-color); /* 滑鼠懸停時顏色變換 */
+}
+
+/* 聊天氣泡 */
+.chat-bubble {
+    padding: 10px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    border-radius: var(--border-radius); /* 圓角 */
+    font-size: 16px;
+    word-wrap: break-word; /* 讓長字串自動換行 */
+    overflow-wrap: break-word; /* 強制換行 */
+}
+
+/* 使用者訊息氣泡 */
+.user-bubble {
+    background-color: #d1f7ff; /* 藍色背景 */
+    align-self: flex-end; /* 使氣泡右對齊 */
+}
+
+/* AI 回應氣泡 */
+.ai-bubble {
+    background-color: #f0f0f0; /* 灰色背景 */
+    align-self: flex-start; /* 使氣泡左對齊 */
+}
+
+/* 錯誤訊息氣泡 */
+.error-bubble {
+    background-color: #ffcccc; /* 錯誤訊息背景 */
+    color: #900; /* 錯誤訊息文字顏色 */
+    align-self: center; /* 使氣泡置中 */
+}
+
+.response-image {
+    cursor: pointer;   /* 讓滑鼠變成手型 */
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+
+.response-image:hover {
+    transform: scale(0.96); /* 鼠標懸停縮小 */
+}
+
+/* 放大的圖片顯示層 */
+.fullscreen-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* 半透明黑色背景 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    cursor: zoom-out; /* 顯示可關閉圖片 */
+}
+
+/* 放大圖片樣式 */
+.fullscreen-image img {/* .fullscreen-image 這個容器中的 <img> 元素才會被套用這些樣式。 */
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 10px; /* 圓角 */
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2); /* 白色陰影 */
+    z-index: 10000; /* 確保圖片放大後在最上層 */
+}
+
+/* 包裹放大圖片的容器，用於居中 */
+.overlay-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+
+  .system-bubble {/*系統提示訊息*/
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin: 8px;
+    font-style: italic;
+  }
+
+
+  .highlight {/*搜尋-標記*/
+    background-color: yellow;
+    font-weight: bold;
+}

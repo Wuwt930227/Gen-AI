@@ -99,8 +99,6 @@ except Exception as e:
     embeddings = None
     faiss_index = None
 
-# OpenAI API 金鑰
-openai.api_key = "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"  # 替換為您的 OpenAI API 金鑰
 
 # 定義回答問題的函數，加入記憶功能
 def answer_question(query, top_k=500, similarity_threshold=1.1):
@@ -154,19 +152,6 @@ def answer_question(query, top_k=500, similarity_threshold=1.1):
     except Exception as e:
         print(f"FAISS 搜索過程中出錯: {e}")
         return "檢索過程中出現錯誤。", [], image_urls
-
-    # 呼叫 OpenAI API 生成回答
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "你是一個有幫助的助理，請根據提供的上下文和記憶來回答用戶問題。"},
-                {"role": "user", "content": f"問題: {query}。\n\n{context}\n\n請根據上述文本提供詳細回答。"}
-            ],
-            max_tokens=3000,
-            temperature=0.7
-        )
-        reply = response['choices'][0]['message']['content'].strip()
 
         
         return reply, relevant_results, image_urls  # **回傳圖片 URL 列表**
